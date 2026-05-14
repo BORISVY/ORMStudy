@@ -62,6 +62,61 @@ def new_user():
     session.commit()
     print("Usuários cadastrado com sucesso!")
     input("\nPressione Enter para continuar...")
+
+def edit_username():
+    os.system('cls')
+    print("___Alterar Nome de Usuário___")
+    username_edit = input("Informe o nome do usuário que deseja alterar: ")
+    name = session.query(User).filter_by(username=username_edit).first()
+    if name:
+        print("\nUsuário localizado!\n")
+        new_name = input("Insira o novo nome para o usuário: ")
+        try:
+            User.username = new_name
+            session.commit()
+            print("\nNome de usuário atualizado com sucesso!")
+        except Exception as e:
+            session.rollback()
+            print(f"\nErro ao atualizar o usuário: {e}")
+    else:
+        print("\nUsuário não encontrado.")
+
+def delete_user():
+    os.system('cls')
+    print("___Deletar Usuário___")
+    user = input("Informe o nome do usuário que deseja deletar: ")
+    deleted_user = session.query(User).filter_by(username=user).first()
+    if delete_user:
+        print("\nUsuário localizado!\n")
+        input("Pressione Enter para confirmar a exclusão:")
+        session.delete(deleted_user)
+        session.commit()
+        print(f"\nUsuário {deleted_user} deletado com sucesso!")
+    else:
+        print("\nUsuário não encontrado.")
+
+def get_user():
+    os.system('cls')
+    print("___Localizar Usuário pelo Nome___")
+    username = input("Informe o nome do usuário: ")
+    user = session.query(User).filter_by(username=username).first()
+    if user:   
+        print(f"Usuário localizado com sucesso!")
+        print(f"Segue {user.id, user.username, user.email}")
+    else:
+        print("\nUsuário não encontrado.")
+
+def get_all_users():
+    os.system('cls')
+    print("___Lista de Usuários___")
+    users = session.query(User).all()
+    if not users:
+        print("Nenhum usuário cadastrado no banco de dados.")
+        return
+
+    for user in users:
+        print(f"ID: {user.id} | Usuário: {user.username} | Email: {user.email}")
+        print("-" * 50)
     
 def main():
     logged_user = None
@@ -89,26 +144,69 @@ def main():
             input("\nPressione Enter para continuar...")
         continue
 
-    os.system('cls')
-    print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
-    print("1 - Cadastrar Usuário")
-    print("2 - Editar Nome de Usuário")
-    print("3 - Deletar Usuário")
-    print("4 - Localizar Usuário por Nome")
-    print("5 - Localizar Todos os Usuários")
-    print("6 - Adicionar Tarefa")
-    print("7 - Editar Nome da Tarefa")
-    print("8 - Editar Descrição da Tarefa")
-    print("9 - Completar Tarefa")
-    print("10 - Reabrir tarefa")
-    print("11 - Imprimir Tarefas")
-    print("12 - Localizar Tarefa por Titulo")
-    print("13 - Localizar Tarefa por Descrição")
-    print("14 - Deletar Tarefa")
-    opt = input("Escolha uma opção: ")
+    while True:
+        os.system('cls')
+        print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
+        print("1 - Usuários")
+        print("2 - Tarefas")
+        print("0 - Sair")
+        
+        opt = input("Escolha uma opção: ")
 
-    if opt == "1":
-        new_user()
+        if opt == "1":
+            os.system('cls')
+            print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
+            print("1 - Cadastrar Usuário")
+            print("2 - Editar Nome de Usuário")
+            print("3 - Deletar Usuário")
+            print("4 - Localizar Usuário por Nome")
+            print("5 - Localizar Todos os Usuários")
+            
+            opt = input("Escolha uma opção: ")
+
+            if opt == "1":
+                new_user()
+            
+            if opt == "2":
+                edit_username()
+
+            if opt == "3":
+                delete_user()
+            
+            if opt == "4":
+                get_user()
+            
+            if opt == "5":
+                get_all_users()
+
+            else:
+                print("Opção inválida.")
+                input("\nPressione Enter para continuar...")
+        continue
+
+        if opt == "2":
+            print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
+            os.system('cls')
+            print("6 - Adicionar Tarefa")
+            print("7 - Editar Nome da Tarefa")
+            print("8 - Editar Descrição da Tarefa")
+            print("9 - Completar Tarefa")
+            print("10 - Reabrir tarefa")
+            print("11 - Imprimir Tarefas")
+            print("12 - Localizar Tarefa por Titulo")
+            print("13 - Localizar Tarefa por Descrição")
+            print("14 - Deletar Tarefa")
+
+            opt = input("Escolha uma opção: ")
+
+        elif opt == "0":
+            print("Saindo...")
+            break
+
+        else:
+            print("Opção inválida.")
+            input("\nPressione Enter para continuar...")
+        continue
         
 if __name__ == "__main__":
     main()
