@@ -129,84 +129,101 @@ def main():
             print("0 - Sair")
             opt = input("Escolha uma opção: ")
 
-        if opt == "1":
-            logged_user = login()
+            if opt == "1":
+                logged_user = login()
 
-        if opt == "2":
-            new_user()
-        
-        elif opt == "0":
-            print("Saindo...")
-            break
- 
+            if opt == "2":
+                new_user()
+            
+            elif opt == "0":
+                print("Saindo...")
+                break
+    
+            else:
+                print("Opção inválida.")
+                input("\nPressione Enter para continuar...")
+
+
         else:
-            print("Opção inválida.")
-            input("\nPressione Enter para continuar...")
-        continue
-
-    while True:
-        os.system('cls')
-        print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
-        print("1 - Usuários")
-        print("2 - Tarefas")
-        print("0 - Sair")
-        
-        opt = input("Escolha uma opção: ")
-
-        if opt == "1":
             os.system('cls')
             print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
-            print("1 - Cadastrar Usuário")
-            print("2 - Editar Nome de Usuário")
-            print("3 - Deletar Usuário")
-            print("4 - Localizar Usuário por Nome")
-            print("5 - Localizar Todos os Usuários")
+            print("1 - Menu de Usuários")
+            print("2 - Menu de Tarefas")
+            print("3 - Logout")
+            print("0 - Sair do Sistema")
             
             opt = input("Escolha uma opção: ")
 
             if opt == "1":
-                new_user()
-            
-            if opt == "2":
-                edit_username()
+                os.system('cls')
+                print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
+                print("1 - Cadastrar Usuário")
+                print("2 - Editar Nome de Usuário")
+                print("3 - Deletar Usuário")
+                print("4 - Localizar Usuário por Nome")
+                print("5 - Localizar Todos os Usuários")
+                print("0 - Retornar")
+                
+                sub_opt = input("Escolha uma opção: ")
 
-            if opt == "3":
-                delete_user()
-            
-            if opt == "4":
-                get_user()
-            
-            if opt == "5":
-                get_all_users()
+                if sub_opt == "1":
+                    new_user()
+                
+                elif sub_opt == "2":
+                    edit_username()
 
+                elif sub_opt == "3":
+                    delete_user()
+                
+                elif sub_opt == "4":
+                    get_user()
+                
+                elif sub_opt == "5":
+                    get_all_users()
+
+                elif sub_opt == "0":
+                    pass
+
+                else:
+                    print("Opção inválida.")
+                    input("\nPressione Enter para continuar...")
+
+            elif opt == "2":
+                print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
+                os.system('cls')
+                print("1 - Adicionar Tarefa")
+                print("2 - Editar Nome da Tarefa")
+                print("3 - Editar Descrição da Tarefa")
+                print("4 - Completar Tarefa")
+                print("5 - Reabrir tarefa")
+                print("6 - Imprimir Tarefas")
+                print("7 - Localizar Tarefa por Titulo")
+                print("8 - Localizar Tarefa por Descrição")
+                print("9 - Deletar Tarefa")
+                print("0 - Retornar")
+
+                sub_opt = input("Escolha uma opção: ")
+
+                if sub_opt == "":
+                    print("Saindo...")
+                    break
+
+                else:
+                    print("Opção inválida.")
+                    input("\nPressione Enter para continuar...")
+                continue
+
+            elif opt == "3":
+                logged_user = None
+                print("Logout realizado com sucesso!")
+                input("\nPressione Enter para continuar...")
+
+            elif opt == "0":
+                print("Saindo do sistema...")
+                break
             else:
                 print("Opção inválida.")
                 input("\nPressione Enter para continuar...")
-        continue
-
-        if opt == "2":
-            print(f"\n___ Menu Principal (Logado como: {logged_user.username}) ___")
-            os.system('cls')
-            print("6 - Adicionar Tarefa")
-            print("7 - Editar Nome da Tarefa")
-            print("8 - Editar Descrição da Tarefa")
-            print("9 - Completar Tarefa")
-            print("10 - Reabrir tarefa")
-            print("11 - Imprimir Tarefas")
-            print("12 - Localizar Tarefa por Titulo")
-            print("13 - Localizar Tarefa por Descrição")
-            print("14 - Deletar Tarefa")
-
-            opt = input("Escolha uma opção: ")
-
-        elif opt == "0":
-            print("Saindo...")
-            break
-
-        else:
-            print("Opção inválida.")
-            input("\nPressione Enter para continuar...")
-        continue
         
 if __name__ == "__main__":
     main()
