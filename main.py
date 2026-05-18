@@ -13,7 +13,7 @@ def menu():
 
             if opt == "1":
                 logged_user = services.login()
-            if opt == "2":
+            elif opt == "2":
                 services.new_user()
             elif opt == "0":
                 print("Saindo...")
